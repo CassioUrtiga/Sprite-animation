@@ -15,8 +15,6 @@ class Personagem{
         this.numSprite = 0; //número do sprite atual
         this.alternaSprite = 0; //alterna entre o eixo x do sprite
         this.contadorAtraso = 0;
-        this.lsprite = this.img.width/10;
-        this.alturaSprite = this.img.height/8;
     }
 
     desenhar(){
@@ -24,45 +22,45 @@ class Personagem{
         if (this.teclado.cima){
             this.y -= this.velocidade;
             this.estado = 1;
-            this.animacao(5, 10, 780);
+            this.animation(this.img, 5, 10, 780, 120, 130);
         }
         //animação parado de costas
         if (!this.teclado.cima && this.estado == 1){
-            this.animacao(0, 1, 260);
+            this.animation(this.img, 0, 1, 260, 120, 130);
         }
         //animação descer
         if (this.teclado.baixo){
             this.y += this.velocidade;
             this.estado = -1;
-            this.animacao(5, 10, 520);
+            this.animation(this.img, 5, 10, 520, 120, 130);
         }
         //animação parado de frente
         if (!this.teclado.baixo && this.estado == -1){
-            this.animacao(50, 3, 0);
+            this.animation(this.img, 50, 3, 0, 120, 130);
         }
         //animação indo para direita
         if (this.teclado.direita){
             this.x += this.velocidade;
             this.estado = 2;
-            this.animacao(5, 10, 910);
+            this.animation(this.img, 5, 10, 910, 120, 130);
         }
         //animação parado na direita
         if (!this.teclado.direita && this.estado == 2){
-            this.animacao(50, 3, 390);
+            this.animation(this.img, 50, 3, 390, 120, 130);
         }
         //animação indo para esquerda
         if (this.teclado.esquerda){
             this.x -= this.velocidade;
             this.estado = -2;
-            this.animacao(5, 10, 650);
+            this.animation(this.img, 5, 10, 650, 120, 130);
         }
         //animação parado na esquerda
         if (!this.teclado.esquerda && this.estado == -2){
-            this.animacao(50, 3, 130);
+            this.animation(this.img, 50, 3, 130, 120, 130);
         }
     }
 
-    animacao(atrasoSprite, totalSprite, posSprite){
+    animation(img, atrasoSprite, totalSprite, ySprite, tamX, tamY){
         this.contadorAtraso++;
 
         if (this.contadorAtraso >= atrasoSprite || this.numSprite > totalSprite-1){
@@ -72,9 +70,9 @@ class Personagem{
             if (this.numSprite > totalSprite-1){
                 this.numSprite = 0;
             }
-            this.alternaSprite = this.numSprite*this.lsprite;
+            this.alternaSprite = this.numSprite*tamX;
         }
         
-        this.caneta.drawImage(this.img, this.alternaSprite, posSprite, this.lsprite, this.alturaSprite, this.x, this.y, 100, 100);
+        this.caneta.drawImage(img, this.alternaSprite, ySprite, tamX, tamY, this.x, this.y, tamX, tamY);
     }
 }
